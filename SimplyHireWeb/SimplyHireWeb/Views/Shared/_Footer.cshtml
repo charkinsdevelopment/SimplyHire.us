@@ -1,0 +1,19 @@
+﻿<footer class="footer">
+    <div class="columns">
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column">
+            <h2>Newsletter Sign Up</h2>
+            @using (Html.BeginForm("Newsletter", "SignUp", FormMethod.Post))
+            {
+                <div class="field">
+                    <div class="control">
+                        <label>Email Address<span class="required">*</span></label>
+                        @Html.TextBox("Email",null , new { required = "required", placeholder="Email Address" })
+                    </div>
+                </div>
+                <input class="button is-primary" type="submit" value="Sign Up" />
+            }
+        </div>
+    </div>
+</footer>

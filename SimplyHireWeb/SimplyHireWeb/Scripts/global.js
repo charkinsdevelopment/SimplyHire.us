@@ -1,0 +1,1 @@
+﻿const searchType = { "jobs": 1, "skills": 2 };
