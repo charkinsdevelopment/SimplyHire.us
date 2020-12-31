@@ -23,6 +23,7 @@ namespace SimplyHireWeb.Models
         public DbSet<Company> Companies { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<NewsLetterSignUp> NewsLetterSignUps { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

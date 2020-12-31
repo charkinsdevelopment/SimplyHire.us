@@ -170,6 +170,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NewsletterController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -182,15 +183,20 @@
     <Compile Include="Migrations\202012200348574_AddCompaniesJobsSkills.Designer.cs">
       <DependentUpon>202012200348574_AddCompaniesJobsSkills.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202012312103421_newsletter.cs" />
+    <Compile Include="Migrations\202012312103421_newsletter.Designer.cs">
+      <DependentUpon>202012312103421_newsletter.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\DbModels\Company.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\HomeMainViewModel.cs" />
-    <Compile Include="Models\Job.cs" />
+    <Compile Include="Models\DbModels\Job.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\DbModels\NewsLetterSignUp.cs" />
     <Compile Include="Models\SearchResultsViewModel.cs" />
-    <Compile Include="Models\Skill.cs" />
+    <Compile Include="Models\DbModels\Skill.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -254,6 +260,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Newsletter\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -270,6 +277,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012200348574_AddCompaniesJobsSkills.resx">
       <DependentUpon>202012200348574_AddCompaniesJobsSkills.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012312103421_newsletter.resx">
+      <DependentUpon>202012312103421_newsletter.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

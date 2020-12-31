@@ -1,19 +1,41 @@
-﻿<footer class="footer">
+﻿@model SimplyHireWeb.Models.NewsLetterSignUp
+
+<footer class="footer has-text-centered">
     <div class="columns">
         <div class="column"></div>
         <div class="column"></div>
         <div class="column">
-            <h2>Newsletter Sign Up</h2>
-            @using (Html.BeginForm("Newsletter", "SignUp", FormMethod.Post))
+            <h2 class="title is-5">Newsletter Sign Up</h2>
+            @using (Ajax.BeginForm("SignUp", "Newsletter", new AjaxOptions { UpdateTargetId = "NewsletterSignUp", HttpMethod = "POST", OnFailure = "newsletterOnFailure", OnSuccess = "newsletterOnSuccess", OnBegin = "newsletterOnBegin", OnComplete = "newsletterOnComplete" }))
             {
-                <div class="field">
-                    <div class="control">
-                        <label>Email Address<span class="required">*</span></label>
-                        @Html.TextBox("Email",null , new { required = "required", placeholder="Email Address" })
+                <div id="NewsletterSignUp">
+                    <div class="field has-text-left">
+                        <div class="control">
+                            @*<label class="label">Email Address <span class="required">*</span></label>*@
+                            @Html.TextBoxFor(m => m.EmailAddress, new { required = "required", placeholder = "Email Address *", @class = "input" })
+                        </div>
                     </div>
+                    <button class="button is-primary is-pulled-right" type="submit">Subscribe</button>
+                    @Html.ValidationSummary()
                 </div>
-                <input class="button is-primary" type="submit" value="Sign Up" />
             }
         </div>
     </div>
 </footer>
+
+<script>
+    const newsletterOnFailure = (response) => {
+
+    }
+    const newsletterOnBegin = () => {
+        $('#EmailAddress').parent().addClass('is-loading');
+    }
+
+    const newsletterOnComplete = () => {
+        $('#EmailAddress').parent().removeClass('is-loading');
+    }
+
+    const newsletterOnSuccess = (response) => {
+
+    }
+</script>

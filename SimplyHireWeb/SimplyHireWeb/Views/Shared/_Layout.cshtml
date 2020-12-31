@@ -13,10 +13,11 @@
         @Html.Partial("_Navigation")
         @RenderBody()
         <hr />
-        @Html.Partial("_Footer")
+        @Html.Partial("_Footer", new SimplyHireWeb.Models.NewsLetterSignUp())
     </div>
 
     @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("scripts", required: false)
     <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
 </body>
