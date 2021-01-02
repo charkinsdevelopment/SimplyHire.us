@@ -10,10 +10,10 @@
 @if (isAuthed)
 {
     string loggedClass = user.AccountType == 0 ? "is-info" : "is-success";
-    <div class="logged-in-info">
-        <span class="tag @(loggedClass)">@user.AccountType.ToString() Account</span>
-        <span class="tag">@user.UserName</span>
-    </div>
+<div class="logged-in-info">
+    <span class="tag @(loggedClass)">@user.AccountType.ToString() Account</span>
+    <a href="/Account/Profile"><span class="tag">@user.UserName</span></a>
+</div>
 }
 <nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
@@ -41,14 +41,17 @@
             </div>
             if (user.AccountType == SimplyHireWeb.Models.AccountType.Employee)
             {
-                <div class="navbar-item is-tab @(ViewContext.Controller.GetType().Name)">
+                <div class="navbar-item is-tab @(actionName == "MyJobs" && controllerName == "Jobs" ? "is-active" : "")">
                     <a href="/Jobs/MyJobs">My Jobs</a>
                 </div>
-                <div class="navbar-item is-tab">
+                <div class="navbar-item is-tab @(actionName == "" && controllerName == "Notifications" ? "is-active" : "")">
                     <a href="/Notifications">My Notifications</a>
                 </div>
-                <div class="navbar-item is-tab">
+                <div class="navbar-item is-tab @(actionName == "Suggested" && controllerName == "Jobs" ? "is-active" : "")">
                     <a href="/Jobs/Suggested">Suggested Jobs</a>
+                </div>
+                <div class="navbar-item is-tab @(actionName == "Profile" && controllerName == "Account" ? "is-active" : "")">
+                    <a href="/Account/Profile">Profile</a>
                 </div>
             }
             else

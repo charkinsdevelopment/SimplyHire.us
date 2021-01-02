@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -17,6 +18,7 @@ namespace SimplyHireWeb.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private ApplicationDbContext _db = new ApplicationDbContext();
 
         public AccountController()
         {
@@ -421,6 +423,52 @@ namespace SimplyHireWeb.Controllers
             }
 
             base.Dispose(disposing);
+        }
+
+        public ActionResult Profile()
+        {
+            string currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            UserSkillsViewModel vm = new UserSkillsViewModel();
+            var query = (from s in _db.Skills
+                        join us in _db.UserSkills on s.Id equals us.SkillId
+                        where us.UserId == currentUserId
+                        select new 
+                        {
+                            Id = s.Id,
+                            Name = s.Name,
+                            SkillLevel = s.SkillLevel,
+                            YearsExperience = s.YearsExperience
+                        }).ToList();
+            foreach(var result in query)
+            {
+                Skill skill = new Skill() { 
+                    Id = result.Id,
+                    Name = result.Name,
+                    SkillLevel = result.SkillLevel,
+                    YearsExperience = result.YearsExperience
+                };
+                vm.Skills.Add(skill);
+            }
+
+            return View(vm);
+        }
+
+        [HttpPost]
+        public ActionResult UpdateProfile(string FirstName, string LastName, string PhoneNumber, string Email)
+        {
+            string currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
+            var aspnetUser = _db.Users.FirstOrDefault(f => f.Id == currentUserId);
+            if (aspnetUser == null) return null;
+
+            //var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+            aspnetUser.FirstName = FirstName;
+            aspnetUser.LastName = LastName;
+            aspnetUser.PhoneNumber = PhoneNumber;
+            aspnetUser.Email = Email;
+
+            _db.SaveChanges();
+
+            return RedirectToAction("Index", new { Controller = "ControlPanel" });
         }
 
         #region Helpers

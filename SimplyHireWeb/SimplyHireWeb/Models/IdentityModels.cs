@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using SimplyHireWeb.Models.DbModels;
 
 namespace SimplyHireWeb.Models
 {
@@ -10,6 +11,8 @@ namespace SimplyHireWeb.Models
     public class ApplicationUser : IdentityUser
     {
         public AccountType AccountType { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -24,6 +27,7 @@ namespace SimplyHireWeb.Models
         public DbSet<Company> Companies { get; set; }
         public DbSet<Job> Jobs { get; set; }
         public DbSet<Skill> Skills { get; set; }
+        public DbSet<UserSkills> UserSkills {get; set;}
         public DbSet<NewsLetterSignUp> NewsLetterSignUps { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)

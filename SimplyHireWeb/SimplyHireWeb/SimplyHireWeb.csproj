@@ -173,6 +173,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsletterController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
+    <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -192,9 +193,18 @@
     <Compile Include="Migrations\202101020105379_users.Designer.cs">
       <DependentUpon>202101020105379_users.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101022117199_users1.cs" />
+    <Compile Include="Migrations\202101022117199_users1.Designer.cs">
+      <DependentUpon>202101022117199_users1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101022156422_users_skills.cs" />
+    <Compile Include="Migrations\202101022156422_users_skills.Designer.cs">
+      <DependentUpon>202101022156422_users_skills.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DbModels\Company.cs" />
+    <Compile Include="Models\DbModels\UserSkills.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\HomeMainViewModel.cs" />
     <Compile Include="Models\DbModels\Job.cs" />
@@ -202,6 +212,7 @@
     <Compile Include="Models\DbModels\NewsLetterSignUp.cs" />
     <Compile Include="Models\SearchResultsViewModel.cs" />
     <Compile Include="Models\DbModels\Skill.cs" />
+    <Compile Include="Models\UserSkillsViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -265,9 +276,11 @@
     <Content Include="Views\Newsletter\Thanks.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\ControlPanel\Index.cshtml" />
+    <Content Include="Views\Account\Profile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Skills\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -290,6 +303,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101020105379_users.resx">
       <DependentUpon>202101020105379_users.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101022117199_users1.resx">
+      <DependentUpon>202101022117199_users1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101022156422_users_skills.resx">
+      <DependentUpon>202101022156422_users_skills.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
