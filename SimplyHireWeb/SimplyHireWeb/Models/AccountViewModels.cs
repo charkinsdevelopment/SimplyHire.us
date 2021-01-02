@@ -1,8 +1,17 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace SimplyHireWeb.Models
 {
+    public enum AccountType
+    {
+        [Description("Company")]
+        Company,
+
+        [Description("Employee")]
+        Employee
+    }
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
@@ -79,6 +88,9 @@ namespace SimplyHireWeb.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Account Type")]
+        public AccountType AccountType { get; set; }
     }
 
     public class ResetPasswordViewModel

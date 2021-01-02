@@ -79,7 +79,7 @@ namespace SimplyHireWeb.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    return RedirectToRoute(new { Controller = "ControlPanel", Action = "Index"});
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -151,7 +151,7 @@ namespace SimplyHireWeb.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, AccountType = model.AccountType };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

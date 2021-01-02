@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ControlPanelController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsletterController.cs" />
@@ -186,6 +187,10 @@
     <Compile Include="Migrations\202012312103421_newsletter.cs" />
     <Compile Include="Migrations\202012312103421_newsletter.Designer.cs">
       <DependentUpon>202012312103421_newsletter.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202101020105379_users.cs" />
+    <Compile Include="Migrations\202101020105379_users.Designer.cs">
+      <DependentUpon>202101020105379_users.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -228,7 +233,7 @@
     </Content>
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
-    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\Error_Old.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
@@ -257,10 +262,12 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Home\Shared\_SearchJobs.cshtml" />
     <Content Include="Views\Search\Results.cshtml" />
+    <Content Include="Views\Newsletter\Thanks.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\ControlPanel\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Newsletter\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -280,6 +287,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202012312103421_newsletter.resx">
       <DependentUpon>202012312103421_newsletter.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101020105379_users.resx">
+      <DependentUpon>202101020105379_users.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

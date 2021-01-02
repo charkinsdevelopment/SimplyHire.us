@@ -1,6 +1,23 @@
-﻿<nav class="navbar" role="navigation" aria-label="main navigation">
+﻿@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.Owin;
+
+@{
+    bool isAuthed = (System.Web.HttpContext.Current.User != null) && System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+    var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+    string controllerName = ViewContext.RouteData.GetRequiredString("controller");
+    string actionName = ViewContext.RouteData.GetRequiredString("action");
+}
+@if (isAuthed)
+{
+    string loggedClass = user.AccountType == 0 ? "is-info" : "is-success";
+    <div class="logged-in-info">
+        <span class="tag @(loggedClass)">@user.AccountType.ToString() Account</span>
+        <span class="tag">@user.UserName</span>
+    </div>
+}
+<nav class="navbar" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
-        <a class="navbar-item" href="/">
+        <a class="navbar-item is-tab" href="/">
             <img src="~/Content/Images/logo.png" width="100" height="auto" />
         </a>
 
@@ -13,26 +30,68 @@
 
     <div id="navigation" class="navbar-menu">
         @*<div class="navbar-start">
-            <a class="navbar-item">
+            <a class="navbar-item is-tab">
                 Home
             </a>
         </div>*@
-
-        <div class="navbar-end">
-            <div class="navbar-item">
-                <div class="buttons">
-                    <a class="button is-primary">
-                        <strong>Sign up</strong>
-                    </a>
-                    <a class="button is-light">
-                        Log in
-                    </a>
+        @if (isAuthed)
+        {
+            <div class="navbar-item is-tab @(actionName == "Index" && controllerName == "ControlPanel" ? "is-active" : "")">
+                <a href="/ControlPanel">Home</a>
+            </div>
+            if (user.AccountType == SimplyHireWeb.Models.AccountType.Employee)
+            {
+                <div class="navbar-item is-tab @(ViewContext.Controller.GetType().Name)">
+                    <a href="/Jobs/MyJobs">My Jobs</a>
                 </div>
+                <div class="navbar-item is-tab">
+                    <a href="/Notifications">My Notifications</a>
+                </div>
+                <div class="navbar-item is-tab">
+                    <a href="/Jobs/Suggested">Suggested Jobs</a>
+                </div>
+            }
+            else
+            {
+                <div class="navbar-item is-tab">
+                    <a href="/Company/MyJobs">My Jobs</a>
+                </div>
+                <div class="navbar-item is-tab">
+                    <a href="/Notifications">My Notifications</a>
+                </div>
+                <div class="navbar-item is-tab">
+                    <a href="/Employees/Suggested">Suggested Jobs</a>
+                </div>
+            }
+        }
+        <div class="navbar-end">
+            <div class="navbar-item is-tab">
+                @if (isAuthed)
+                {
+                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="buttons">
+                            <button type="submit" class="button"><i title="Log Off" alt="Log Off" class="fas fa-power-off"></i></button>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <div class="buttons">
+                        <a href="/Account/Register" class="button is-primary">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a href="/Account/Login" class="button is-light">
+                            Sign in
+                        </a>
+                    </div>
+                }
             </div>
         </div>
     </div>
 </nav>
-
+<hr />
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 

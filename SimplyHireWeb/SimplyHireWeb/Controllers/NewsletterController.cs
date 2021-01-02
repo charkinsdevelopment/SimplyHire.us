@@ -10,12 +10,14 @@ namespace SimplyHireWeb.Controllers
     public class NewsletterController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
+        private void DbSave()
+        {
+            _db.SaveChanges();
+        }
         // GET: Newsletter
         [HttpPost]
         public ActionResult SignUp(NewsLetterSignUp vm)
         {
-            bool _success = true;
-            string _message = "Signed Up!";
             try
             {
                 NewsLetterSignUp model = new NewsLetterSignUp();
@@ -24,7 +26,7 @@ namespace SimplyHireWeb.Controllers
                     model = _db.NewsLetterSignUps.First(f => f.EmailAddress.ToLower() == vm.EmailAddress.ToLower());
                     model.OptedOut = false;
                     model.NewsletterSentDate = null;
-                    _db.SaveChanges();
+                    //_db.SaveChanges();
                 } 
                 else
                 {
@@ -33,15 +35,26 @@ namespace SimplyHireWeb.Controllers
                     model.NewsletterSentDate = null;
                     model.OptedOut = false;
                     _db.NewsLetterSignUps.Add(model);
-                    _db.SaveChanges();
+                    //_db.SaveChanges();
 
                 }
+                DbSave();
             } catch(Exception ex)
             {
-                _success = false;
-                _message = "There was an error signing you up. Please try again later.";
+                string error = ex.Message;
+                return RedirectToAction("Error");
             }
-            return Json(new { Success = _success, Message = _message });
+            return RedirectToAction("Thanks");
+        }
+
+        public ActionResult Thanks()
+        {
+            return View();
+        }
+
+        public ActionResult Error()
+        {
+            return View("/Shared/Error");
         }
     }
 }

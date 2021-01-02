@@ -1,27 +1,38 @@
-﻿@model SimplyHireWeb.Models.NewsLetterSignUp
+﻿@using Microsoft.AspNet.Identity;
+@using Microsoft.AspNet.Identity.Owin;
 
-<footer class="footer has-text-centered">
-    <div class="columns">
-        <div class="column"></div>
-        <div class="column"></div>
-        <div class="column">
-            <h2 class="title is-5">Newsletter Sign Up</h2>
-            @using (Ajax.BeginForm("SignUp", "Newsletter", new AjaxOptions { UpdateTargetId = "NewsletterSignUp", HttpMethod = "POST", OnFailure = "newsletterOnFailure", OnSuccess = "newsletterOnSuccess", OnBegin = "newsletterOnBegin", OnComplete = "newsletterOnComplete" }))
-            {
-                <div id="NewsletterSignUp">
-                    <div class="field has-text-left">
-                        <div class="control">
-                            @*<label class="label">Email Address <span class="required">*</span></label>*@
-                            @Html.TextBoxFor(m => m.EmailAddress, new { required = "required", placeholder = "Email Address *", @class = "input" })
+@model SimplyHireWeb.Models.NewsLetterSignUp
+
+@{
+    bool isAuthed = (System.Web.HttpContext.Current.User != null) && System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+    var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
+}
+@if (!isAuthed)
+{
+    <footer class="footer has-text-centered">
+        <div class="columns">
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column">
+                <h2 class="title is-5">Newsletter Sign Up</h2>
+                @using (Ajax.BeginForm("SignUp", "Newsletter", new AjaxOptions { UpdateTargetId = "NewsletterSignUp", HttpMethod = "POST", OnFailure = "newsletterOnFailure", OnSuccess = "newsletterOnSuccess", OnBegin = "newsletterOnBegin", OnComplete = "newsletterOnComplete" }))
+                {
+                    <div id="NewsletterSignUp">
+                        <div class="field has-text-left">
+                            <div class="control">
+                                @*<label class="label">Email Address <span class="required">*</span></label>*@
+                                @Html.TextBoxFor(m => m.EmailAddress, new { required = "required", placeholder = "Email Address *", @class = "input" })
+                            </div>
                         </div>
+                        <button class="button is-primary is-pulled-right" type="submit">Subscribe</button>
+                        @Html.ValidationSummary()
                     </div>
-                    <button class="button is-primary is-pulled-right" type="submit">Subscribe</button>
-                    @Html.ValidationSummary()
-                </div>
-            }
+                }
+            </div>
         </div>
-    </div>
-</footer>
+    </footer>
+}
+
 
 <script>
     const newsletterOnFailure = (response) => {
