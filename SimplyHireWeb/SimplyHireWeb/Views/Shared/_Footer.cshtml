@@ -7,12 +7,20 @@
     bool isAuthed = (System.Web.HttpContext.Current.User != null) && System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
     var user = System.Web.HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>().FindById(System.Web.HttpContext.Current.User.Identity.GetUserId());
 }
+
 @if (!isAuthed)
 {
     <footer class="footer has-text-centered">
         <div class="columns">
-            <div class="column"></div>
-            <div class="column"></div>
+            <div class="column">
+                <div class="bottom-of-column">
+                    <a href="/Privacy/Index">Privacy Policy</a> |
+                    <a href="/TermsOfUse/Index">Terms of Use</a>
+                </div>
+            </div>
+            <div class="column">
+                &copy; @(DateTime.Now.Year.ToString()) Easy Hire, LLC. <br /> Power By <a href="https://www.stripe.com" target="_blank">Stripe.com</a>
+            </div>
             <div class="column">
                 <h2 class="title is-5">Newsletter Sign Up</h2>
                 @using (Ajax.BeginForm("SignUp", "Newsletter", new AjaxOptions { UpdateTargetId = "NewsletterSignUp", HttpMethod = "POST", OnFailure = "newsletterOnFailure", OnSuccess = "newsletterOnSuccess", OnBegin = "newsletterOnBegin", OnComplete = "newsletterOnComplete" }))
