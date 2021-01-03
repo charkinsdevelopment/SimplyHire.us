@@ -29,11 +29,6 @@
     </div>
 
     <div id="navigation" class="navbar-menu">
-        @*<div class="navbar-start">
-            <a class="navbar-item is-tab">
-                Home
-            </a>
-        </div>*@
         @if (isAuthed)
         {
             <div class="navbar-item is-tab @(actionName == "Index" && controllerName == "ControlPanel" ? "is-active" : "")">
@@ -48,7 +43,7 @@
                     <a href="/Notifications">My Notifications</a>
                 </div>
                 <div class="navbar-item is-tab @(actionName == "Suggested" && controllerName == "Jobs" ? "is-active" : "")">
-                    <a href="/Jobs/Suggested">Suggested Jobs</a>
+                    <a href="/Jobs/Search">Find Jobs</a>
                 </div>
                 <div class="navbar-item is-tab @(actionName == "Profile" && controllerName == "Account" ? "is-active" : "")">
                     <a href="/Account/Profile">Profile</a>
@@ -63,7 +58,7 @@
                     <a href="/Notifications">My Notifications</a>
                 </div>
                 <div class="navbar-item is-tab">
-                    <a href="/Employees/Suggested">Suggested Jobs</a>
+                    <a href="/Employees/Suggested">Find Employees</a>
                 </div>
             }
         }

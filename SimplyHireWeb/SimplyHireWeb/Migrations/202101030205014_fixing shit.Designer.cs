@@ -7,13 +7,13 @@ namespace SimplyHireWeb.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class AddCompaniesJobsSkills : IMigrationMetadata
+    public sealed partial class fixingshit : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddCompaniesJobsSkills));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(fixingshit));
         
         string IMigrationMetadata.Id
         {
-            get { return "202012200348574_AddCompaniesJobsSkills"; }
+            get { return "202101030205014_fixing shit"; }
         }
         
         string IMigrationMetadata.Source

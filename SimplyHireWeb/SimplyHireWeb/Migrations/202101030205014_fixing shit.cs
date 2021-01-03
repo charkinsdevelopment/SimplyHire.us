@@ -3,19 +3,20 @@ namespace SimplyHireWeb.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class newsletter : DbMigration
+    public partial class fixingshit : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.NewsLetterSignUps",
+                "dbo.UserSkills",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        EmailAddress = c.String(nullable: false),
-                        CreateDate = c.DateTime(nullable: false),
-                        NewsletterSentDate = c.DateTime(),
-                        OptedOut = c.Boolean(nullable: false),
+                        UserId = c.String(),
+                        SkillId = c.Int(nullable: false),
+                        SkillName = c.String(),
+                        SkillLevel = c.Int(nullable: false),
+                        YearsExperience = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
@@ -23,7 +24,7 @@ namespace SimplyHireWeb.Migrations
         
         public override void Down()
         {
-            DropTable("dbo.NewsLetterSignUps");
+            DropTable("dbo.UserSkills");
         }
     }
 }

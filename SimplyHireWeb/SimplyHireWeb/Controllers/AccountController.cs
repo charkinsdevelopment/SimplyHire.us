@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using SimplyHireWeb.Models;
+using SimplyHireWeb.Models.DbModels;
 
 namespace SimplyHireWeb.Controllers
 {
@@ -436,18 +437,18 @@ namespace SimplyHireWeb.Controllers
                         {
                             Id = s.Id,
                             Name = s.Name,
-                            SkillLevel = s.SkillLevel,
-                            YearsExperience = s.YearsExperience
+                            SkillLevel = us.SkillLevel,
+                            YearsExperience = us.YearsExperience
                         }).ToList();
             foreach(var result in query)
             {
-                Skill skill = new Skill() { 
+                UserSkill skill = new UserSkill() { 
                     Id = result.Id,
-                    Name = result.Name,
+                    SkillName = result.Name,
                     SkillLevel = result.SkillLevel,
                     YearsExperience = result.YearsExperience
                 };
-                vm.Skills.Add(skill);
+                vm.UserSkills.Add(skill);
             }
 
             return View(vm);

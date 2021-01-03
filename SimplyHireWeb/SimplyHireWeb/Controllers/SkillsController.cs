@@ -1,4 +1,6 @@
-﻿using SimplyHireWeb.Models;
+﻿using Microsoft.AspNet.Identity;
+using SimplyHireWeb.Models;
+using SimplyHireWeb.Models.DbModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +12,9 @@ namespace SimplyHireWeb.Controllers
     public class SkillsController : Controller
     {
         private ApplicationDbContext _db = new ApplicationDbContext();
-       [HttpPost]
+        private readonly string _currentUser = System.Web.HttpContext.Current.User.Identity.GetUserId();
+
+        [HttpPost]
        public JsonResult GetSuggestedSkills(string skillname)
         {
             if (skillname == "") return null;
@@ -23,6 +27,42 @@ namespace SimplyHireWeb.Controllers
             suggestion = results.Count > 0 ? results.First().Name : "";
 
             return Json(new { skillName = suggestion, resultCount = count });
+        }
+
+        [HttpPost]
+        public bool AddSkill(string SkillName, string Skill, string YearsExperience)
+        {
+            bool exists = _db.Skills.Any(f => f.Name == SkillName);
+            Skill skill = new Skill();
+            if (!exists)
+            {
+                //create if not existing
+                skill.Name = SkillName;
+                _db.Skills.Add(skill);
+                _db.SaveChanges();
+            } else
+            {
+                skill = _db.Skills.First(f => f.Name == SkillName);
+            }
+
+            //then add skill to user
+            UserSkill us = new UserSkill();
+            us.SkillId = skill.Id;
+            us.SkillLevel = int.Parse(Skill);
+            us.SkillName = skill.Name;
+            us.YearsExperience = int.Parse(YearsExperience);
+            us.UserId = _currentUser;
+            _db.UserSkills.Add(us);
+            _db.SaveChanges();
+
+            return true;
+        }
+
+        [HttpGet]
+        public PartialViewResult GetUserSkillsView()
+        {
+            var userSkills = _db.UserSkills.Where(f => f.UserId == _currentUser).ToList();
+            return PartialView("_SkillsList", userSkills);
         }
     }
 }

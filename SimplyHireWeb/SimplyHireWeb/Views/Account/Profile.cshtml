@@ -63,37 +63,8 @@
                 </div>
             }
         </div>
-        <div class="column">
-            <h2 class="title is-3">My Skills</h2>
-            <p>Add your top 5 most marketable skills.</p>
-            <table class="is-striped table">
-                <thead>
-                    <tr>
-                        <th>Skill</th>
-                        <th>Exp Level</th>
-                        <th>Years of Exp.</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-
-                @foreach (var skill in Model.Skills)
-                {
-                    <tr>
-                        <td>@skill.Name</td>
-                        <td>@skill.SkillLevel</td>
-                        <td>@skill.YearsExperience</td>
-                        <td><a href="#">Edit</a></td>
-                        <td><a href="#">Delete</a></td>
-                    </tr>
-                }
-                @if (Model.Skills.Count == 0)
-                {
-                    <tr>
-                        <td>No Skills Yet. <a class="add-modal-skill" href="#">Click Here to Add Skills</a></td>
-                    </tr>
-                }
-            </table>
+        <div id="SkillsList" class="column">
+            @Html.Partial("_SkillsList", Model.UserSkills)
         </div>
     </div>
 </section>
@@ -103,7 +74,7 @@
     <div class="modal-content">
         <section class="section">
             <div class="modal-form">
-                @using (Html.BeginForm("UpdateSkills", "Skills", FormMethod.Post, new { @class = "", role = "form" }))
+                @using (Html.BeginForm("AddSkill", "Skills", FormMethod.Post, new { @class = "", role = "form", id="AddSkillForm" }))
                 {
                     <h2 class="title is-3">Add New Skill</h2>
                     @Html.AntiForgeryToken()
@@ -145,7 +116,7 @@
                     <div class="field">
                         <label class="label required">Experience In Years</label>
                         <div class="control">
-                            @Html.TextBox("SkillExperience", "", new { @class = "input", required = "required", placeholder = "Years Experience", type="Number", @min="0", @max="99" })
+                            @Html.TextBox("YearsExperience", "", new { @class = "input", required = "required", placeholder = "Years Experience", type="Number", @min="0", @max="99" })
                         </div>
                     </div>
 
@@ -164,15 +135,21 @@
 <script>
     window.onload = function () {
         $(".add-modal-skill").click(function () {
-            $("#SkillModal").addClass("is-active");
+            OpenModal();
         });
 
         $(".modal-close").click(function () {
-            $("#SkillModal").removeClass("is-active");
+            CloseModal();
         });
         const SetSkillName = (skill) => {
             $('#SkillName').val(skill);
         }
+        const OpenModal = (skill) => {
+            $("#SkillModal").addClass("is-active");
+        };
+        const CloseModal = () => {
+            $("#SkillModal").removeClass("is-active");
+        };
         $('#SkillName').on('keyup', function () {
             setTimeout(function () {
                 $.post('/Skills/GetSuggestedSkills', { skillname: $('#SkillName').val() }).done(function (response) {
@@ -184,7 +161,31 @@
                     }
                 });
             }, 1000);
-            
         });
+
+
+        $('#SaveSkillButton').click(function (event) {
+            var skill = $('input[name="skill"]:checked').val();
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            //$('#AddSkillForm').submit();
+
+            $.ajax({
+                type: "POST",
+                url: '/Skills/AddSkill',
+                data: {
+                    SkillName: $('#SkillName').val(),
+                    Skill: skill,
+                    YearsExperience: $('#YearsExperience').val()
+                },
+                success: function () {
+                    $.get("/Skills/GetUserSkillsView", function (html) {
+                        $('#SkillsList').html(html);
+                        CloseModal();
+                    });
+                }
+            });
+        });
+
     }
 </script>

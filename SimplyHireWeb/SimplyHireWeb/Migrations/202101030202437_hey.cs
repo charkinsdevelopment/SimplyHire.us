@@ -3,9 +3,14 @@ namespace SimplyHireWeb.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class users_skills : DbMigration
+    public partial class hey : DbMigration
     {
         public override void Up()
+        {
+            DropTable("dbo.UserSkills");
+        }
+        
+        public override void Down()
         {
             CreateTable(
                 "dbo.UserSkills",
@@ -14,16 +19,12 @@ namespace SimplyHireWeb.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         UserId = c.String(),
                         SkillId = c.Int(nullable: false),
+                        SkillName = c.String(),
+                        SkillLevel = c.Int(nullable: false),
+                        YearsExperience = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.Id);
             
-            AddColumn("dbo.Skills", "YearsExperience", c => c.Int(nullable: false));
-        }
-        
-        public override void Down()
-        {
-            DropColumn("dbo.Skills", "YearsExperience");
-            DropTable("dbo.UserSkills");
         }
     }
 }

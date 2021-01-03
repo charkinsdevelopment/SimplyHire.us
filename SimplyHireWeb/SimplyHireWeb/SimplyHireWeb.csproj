@@ -177,29 +177,17 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012200341589_Init.cs" />
-    <Compile Include="Migrations\202012200341589_Init.Designer.cs">
-      <DependentUpon>202012200341589_Init.cs</DependentUpon>
+    <Compile Include="Migrations\202101030200330_init.cs" />
+    <Compile Include="Migrations\202101030200330_init.Designer.cs">
+      <DependentUpon>202101030200330_init.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012200348574_AddCompaniesJobsSkills.cs" />
-    <Compile Include="Migrations\202012200348574_AddCompaniesJobsSkills.Designer.cs">
-      <DependentUpon>202012200348574_AddCompaniesJobsSkills.cs</DependentUpon>
+    <Compile Include="Migrations\202101030202437_hey.cs" />
+    <Compile Include="Migrations\202101030202437_hey.Designer.cs">
+      <DependentUpon>202101030202437_hey.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202012312103421_newsletter.cs" />
-    <Compile Include="Migrations\202012312103421_newsletter.Designer.cs">
-      <DependentUpon>202012312103421_newsletter.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101020105379_users.cs" />
-    <Compile Include="Migrations\202101020105379_users.Designer.cs">
-      <DependentUpon>202101020105379_users.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101022117199_users1.cs" />
-    <Compile Include="Migrations\202101022117199_users1.Designer.cs">
-      <DependentUpon>202101022117199_users1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202101022156422_users_skills.cs" />
-    <Compile Include="Migrations\202101022156422_users_skills.Designer.cs">
-      <DependentUpon>202101022156422_users_skills.cs</DependentUpon>
+    <Compile Include="Migrations\202101030205014_fixing shit.cs" />
+    <Compile Include="Migrations\202101030205014_fixing shit.Designer.cs">
+      <DependentUpon>202101030205014_fixing shit.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -277,6 +265,7 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\ControlPanel\Index.cshtml" />
     <Content Include="Views\Account\Profile.cshtml" />
+    <Content Include="Views\Shared\_SkillsList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -292,23 +281,14 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202012200341589_Init.resx">
-      <DependentUpon>202012200341589_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101030200330_init.resx">
+      <DependentUpon>202101030200330_init.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012200348574_AddCompaniesJobsSkills.resx">
-      <DependentUpon>202012200348574_AddCompaniesJobsSkills.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101030202437_hey.resx">
+      <DependentUpon>202101030202437_hey.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202012312103421_newsletter.resx">
-      <DependentUpon>202012312103421_newsletter.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101020105379_users.resx">
-      <DependentUpon>202101020105379_users.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101022117199_users1.resx">
-      <DependentUpon>202101022117199_users1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202101022156422_users_skills.resx">
-      <DependentUpon>202101022156422_users_skills.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202101030205014_fixing shit.resx">
+      <DependentUpon>202101030205014_fixing shit.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
