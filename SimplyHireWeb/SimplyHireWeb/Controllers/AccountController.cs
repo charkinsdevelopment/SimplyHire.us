@@ -455,7 +455,7 @@ namespace SimplyHireWeb.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateProfile(string FirstName, string LastName, string PhoneNumber, string Email)
+        public ActionResult UpdateProfile(string FirstName, string LastName, string PhoneNumber, string Email, string Bio)
         {
             string currentUserId = System.Web.HttpContext.Current.User.Identity.GetUserId();
             var aspnetUser = _db.Users.FirstOrDefault(f => f.Id == currentUserId);
@@ -466,6 +466,7 @@ namespace SimplyHireWeb.Controllers
             aspnetUser.LastName = LastName;
             aspnetUser.PhoneNumber = PhoneNumber;
             aspnetUser.Email = Email;
+            aspnetUser.Bio = Bio;
 
             _db.SaveChanges();
 

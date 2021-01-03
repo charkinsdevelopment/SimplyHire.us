@@ -189,6 +189,10 @@
     <Compile Include="Migrations\202101030205014_fixing shit.Designer.cs">
       <DependentUpon>202101030205014_fixing shit.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101030245449_user bio.cs" />
+    <Compile Include="Migrations\202101030245449_user bio.Designer.cs">
+      <DependentUpon>202101030245449_user bio.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\DbModels\Company.cs" />
@@ -289,6 +293,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101030205014_fixing shit.resx">
       <DependentUpon>202101030205014_fixing shit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101030245449_user bio.resx">
+      <DependentUpon>202101030245449_user bio.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

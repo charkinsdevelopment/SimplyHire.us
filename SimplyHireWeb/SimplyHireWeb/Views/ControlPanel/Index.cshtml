@@ -3,5 +3,85 @@
     ViewBag.Title = "Control Panel";
 }
 
-<h2 class="title is-3">Control Panel - Home</h2>
+<section class="section">
+    <h2 class="title is-4">Dashboard</h2>
 
+    <div class="columns">
+        <div class="column">
+            <article class="message">
+                <div class="message-header">
+                    <p>Profile Views Today</p>
+                </div>
+                <div class="message-body">
+                    <p class="title is-3">110</p>
+                </div>
+            </article>
+        </div>
+        <div class="column">
+            <article class="message is-info">
+                <div class="message-header">
+                    <p>Jobs Applied Today</p>
+                </div>
+                <div class="message-body">
+                    <p class="title is-3">8</p>
+                </div>
+            </article>
+        </div>
+        <div class="column">
+            <article class="message is-primary">
+                <div class="message-header">
+                    <p>Top Searched Skill</p>
+                </div>
+                <div class="message-body">
+                    <p class="title is-3">Skill Name</p>
+                </div>
+            </article>
+        </div>
+        <div class="column">
+            <article class="message is-success">
+                <div class="message-header">
+                    <p>Jobs Interested In You</p>
+                </div>
+                <div class="message-body">
+                    <p class="title is-3">8</p>
+                </div>
+            </article>
+        </div>
+    </div>
+
+    <h2 class="title is-3">Profile Views (30 Days)</h2>
+    <canvas id="myChart"></canvas>
+</section>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js" integrity="sha512-d9xgZrVZpmmQlfonhQUvTR7lMPtO7NkZMkA0ABN3PHCbKA5nqylQ/yWlFAyY6hYgdF1Qh6nYiuADWwKB4C2WSw==" crossorigin="anonymous"></script>
+
+<script>
+    var ctx = document.getElementById('myChart');
+    var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Jan 1', 'Jan 2', 'Jan 3', 'Jan 4',],
+            datasets: [{
+                label: '# of Views',
+                data: [1, 2, 3, 1],
+                backgroundColor: [
+                    '#EBFFFC'
+                ],
+                borderColor: [
+                    '#00D1B2'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: false
+                    }
+                }]
+            }
+        }
+    });
+</script>

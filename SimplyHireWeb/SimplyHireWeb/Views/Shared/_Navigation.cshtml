@@ -7,89 +7,103 @@
     string controllerName = ViewContext.RouteData.GetRequiredString("controller");
     string actionName = ViewContext.RouteData.GetRequiredString("action");
 }
-@if (isAuthed)
-{
-    string loggedClass = user.AccountType == 0 ? "is-info" : "is-success";
-<div class="logged-in-info">
-    <span class="tag @(loggedClass)">@user.AccountType.ToString() Account</span>
-    <a href="/Account/Profile"><span class="tag">@user.UserName</span></a>
-</div>
-}
-<nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-brand">
-        <a class="navbar-item is-tab" href="/">
-            <img src="~/Content/Images/logo.png" width="100" height="auto" />
-        </a>
-
-        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navigation">
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-            <span aria-hidden="true"></span>
-        </a>
-    </div>
-
-    <div id="navigation" class="navbar-menu">
-        @if (isAuthed)
-        {
-            <div class="navbar-item is-tab @(actionName == "Index" && controllerName == "ControlPanel" ? "is-active" : "")">
-                <a href="/ControlPanel">Home</a>
-            </div>
-            if (user.AccountType == SimplyHireWeb.Models.AccountType.Employee)
+<section class="section">
+    @if (isAuthed)
+    {
+        string loggedClass = user.AccountType == 0 ? "is-info" : "is-success";
+        <div class="logged-in-info">
+            <a title="Notifications" href="/notifications"><span id="NotificationsTag" class="tag is-danger notifications">1</span></a>
+            @*<span class="tag @(loggedClass)">@user.AccountType.ToString() Account</span>*@
+            <a title="My Profile" href="/Account/Profile"><span class="tag">@user.UserName</span></a>
+            @if (isAuthed)
             {
-                <div class="navbar-item is-tab @(actionName == "MyJobs" && controllerName == "Jobs" ? "is-active" : "")">
-                    <a href="/Jobs/MyJobs">My Jobs</a>
-                </div>
-                <div class="navbar-item is-tab @(actionName == "" && controllerName == "Notifications" ? "is-active" : "")">
-                    <a href="/Notifications">My Notifications</a>
-                </div>
-                <div class="navbar-item is-tab @(actionName == "Suggested" && controllerName == "Jobs" ? "is-active" : "")">
-                    <a href="/Jobs/Search">Find Jobs</a>
-                </div>
-                <div class="navbar-item is-tab @(actionName == "Profile" && controllerName == "Account" ? "is-active" : "")">
-                    <a href="/Account/Profile">Profile</a>
-                </div>
-            }
-            else
-            {
-                <div class="navbar-item is-tab">
-                    <a href="/Company/MyJobs">My Jobs</a>
-                </div>
-                <div class="navbar-item is-tab">
-                    <a href="/Notifications">My Notifications</a>
-                </div>
-                <div class="navbar-item is-tab">
-                    <a href="/Employees/Suggested">Find Employees</a>
-                </div>
-            }
-        }
-        <div class="navbar-end">
-            <div class="navbar-item is-tab">
-                @if (isAuthed)
+                using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
                 {
-                    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <div class="buttons">
-                            <button type="submit" class="button"><i title="Log Off" alt="Log Off" class="fas fa-power-off"></i></button>
-                        </div>
-                    }
+                    @Html.AntiForgeryToken()
+                    <div class="buttons">
+                        <button title="Log Off" type="submit" class="button is-info is-small"><i title="Log Off" alt="Log Off" class="fas fa-power-off"></i></button>
+                    </div>
+                }
+            }
+        </div>
+    }
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item is-tab" href="/">
+                <img src="~/Content/Images/logo.png" width="100" height="auto" />
+            </a>
+
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navigation">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div id="navigation" class="navbar-menu">
+            @if (isAuthed)
+            {
+                <div class="navbar-item is-tab @(actionName == "Index" && controllerName == "ControlPanel" ? "is-active" : "")">
+                    <a href="/ControlPanel">Home</a>
+                </div>
+                if (user.AccountType == SimplyHireWeb.Models.AccountType.Employee)
+                {
+                    <div class="navbar-item is-tab @(actionName == "MyJobs" && controllerName == "Jobs" ? "is-active" : "")">
+                        <a href="/Jobs/MyJobs">My Jobs</a>
+                    </div>
+                    @*<div class="navbar-item is-tab @(actionName == "" && controllerName == "Notifications" ? "is-active" : "")">
+                            <a href="/Notifications">My Notifications</a>
+                        </div>*@
+                    <div class="navbar-item is-tab @(actionName == "Suggested" && controllerName == "Jobs" ? "is-active" : "")">
+                        <a href="/Jobs/Search">Find Jobs</a>
+                    </div>
+                    <div class="navbar-item is-tab @(actionName == "Profile" && controllerName == "Account" ? "is-active" : "")">
+                        <a href="/Account/Profile">Profile</a>
+                    </div>
                 }
                 else
                 {
-                    <div class="buttons">
-                        <a href="/Account/Register" class="button is-primary">
-                            <strong>Sign up</strong>
-                        </a>
-                        <a href="/Account/Login" class="button is-light">
-                            Sign in
-                        </a>
+                    <div class="navbar-item is-tab">
+                        <a href="/Company/MyJobs">My Jobs</a>
+                    </div>
+                    <div class="navbar-item is-tab">
+                        <a href="/Notifications">My Notifications</a>
+                    </div>
+                    <div class="navbar-item is-tab">
+                        <a href="/Employees/Suggested">Find Employees</a>
                     </div>
                 }
+            }
+            <div class="navbar-end">
+                <div class="navbar-item is-tab">
+                    @*@if (isAuthed)
+                        {
+                            using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                <div class="buttons">
+                                    <button title="Log Off" type="submit" class="button is-info"><i title="Log Off" alt="Log Off" class="fas fa-power-off"></i></button>
+                                </div>
+                            }
+                        }
+                        else*@
+                    @if (!isAuthed)
+                    {
+                        <div class="buttons">
+                            <a href="/Account/Register" class="button is-primary">
+                                <strong>Sign up</strong>
+                            </a>
+                            <a href="/Account/Login" class="button is-light">
+                                Sign in
+                            </a>
+                        </div>
+                    }
+                </div>
             </div>
         </div>
-    </div>
-</nav>
-<hr />
+    </nav>
+    <hr />
+</section>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
 

@@ -34,4 +34,23 @@ textarea {
     top: -40px;
     right: 0;
     z-index: 40;
+    display: flex;
+    align-items: center;
+}
+
+    .logged-in-info a {
+        margin: 5px;
+    }
+
+.tag:hover {
+    opacity: 0.8;
+    transition: all .5s ease;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 480px) {
+    .logged-in-info {
+        right: 14px;
+    }
 }

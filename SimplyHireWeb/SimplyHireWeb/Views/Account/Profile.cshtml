@@ -32,27 +32,34 @@
                 <div class="field">
                     <label class="label required">First Name</label>
                     <p class="control">
-                        @Html.TextBox("FirstName", user.FirstName, new { @class = "input", @required = "required" })
+                        @Html.TextBox("FirstName", user.FirstName, new { @class = "input is-small", @required = "required", maxlength = "40" })
                     </p>
                 </div>
                 <label class="label required">Last Name</label>
                 <div class="field">
                     <p class="control">
-                        @Html.TextBox("LastName", user.LastName, new { @class = "input", @required = "required" })
+                        @Html.TextBox("LastName", user.LastName, new { @class = "input is-small", @required = "required", maxlength = "40" })
                     </p>
                 </div>
 
                 <label class="label required">Email Address</label>
                 <div class="field">
                     <p class="control">
-                        @Html.TextBox("Email", user.Email, new { @class = "input", @required = "required" })
+                        @Html.TextBox("Email", user.Email, new { @class = "input is-small", @required = "required" })
                     </p>
                 </div>
 
                 <label class="label required">Phone Number</label>
                 <div class="field">
                     <p class="control">
-                        @Html.TextBox("PhoneNumber", user.PhoneNumber, new { @class = "input", @required = "required" })
+                        @Html.TextBox("PhoneNumber", user.PhoneNumber, new { @class = "input is-small", @required = "required" })
+                    </p>
+                </div>
+
+                <label class="label required">Bio</label>
+                <div class="field">
+                    <p class="control">
+                        @Html.TextArea("Bio", user.Bio, new { @class = "textarea is-small", @required = "required", maxlength = "160", placeholder="160 characters to call your own." })
                     </p>
                 </div>
 
@@ -82,7 +89,7 @@
                     <div class="field">
                         <label class="label required">Skill Name</label>
                         <div class="control">
-                            @Html.TextBox("SkillName", "", new { @class = "input", required = "required", placeholder = "Skill Name" })
+                            @Html.TextBox("SkillName", "", new { @class = "input is-small", required = "required", placeholder = "Skill Name" })
                         </div>
                         <p class="is-success suggestion-text"></p>
                     </div>
@@ -116,7 +123,7 @@
                     <div class="field">
                         <label class="label required">Experience In Years</label>
                         <div class="control">
-                            @Html.TextBox("YearsExperience", "", new { @class = "input", required = "required", placeholder = "Years Experience", type="Number", @min="0", @max="99" })
+                            @Html.TextBox("YearsExperience", "", new { @class = "input is-small", required = "required", placeholder = "Years Experience", type="Number", @min="0", @max="99" })
                         </div>
                     </div>
 
