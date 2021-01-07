@@ -64,5 +64,23 @@ namespace SimplyHireWeb.Controllers
             var userSkills = _db.UserSkills.Where(f => f.UserId == _currentUser).ToList();
             return PartialView("_SkillsList", userSkills);
         }
+
+        [HttpGet]
+        public JsonResult GetSkill(int Id)
+        {
+            var userSkills = _db.UserSkills.FirstOrDefault(f => f.Id == Id && f.UserId == _currentUser);
+            if (userSkills == null) return null;
+            return Json(new { skillname = userSkills.SkillName, skilllevel = userSkills.SkillLevel, yearsexperience = userSkills.YearsExperience }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public void DeleteSkill(string Id)
+        {
+            int skillId = int.Parse(Id);
+            var skillToDelete = _db.UserSkills.FirstOrDefault(f => f.Id == skillId && f.UserId == _currentUser);
+            if (skillToDelete == null) return;
+            _db.UserSkills.Remove(skillToDelete);
+            _db.SaveChanges();
+        }
     }
 }

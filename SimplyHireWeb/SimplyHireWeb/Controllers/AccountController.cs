@@ -435,10 +435,12 @@ namespace SimplyHireWeb.Controllers
                         where us.UserId == currentUserId
                         select new 
                         {
-                            Id = s.Id,
+                            Id = us.Id,
                             Name = s.Name,
+                            SkillId = s.Id,
                             SkillLevel = us.SkillLevel,
-                            YearsExperience = us.YearsExperience
+                            YearsExperience = us.YearsExperience,
+                            UserId = us.UserId
                         }).ToList();
             foreach(var result in query)
             {

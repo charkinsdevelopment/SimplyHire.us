@@ -139,60 +139,222 @@
     <button class="modal-close is-large" aria-label="close"></button>
 </div>
 
-<script>
-    window.onload = function () {
-        $(".add-modal-skill").click(function () {
-            OpenModal();
-        });
+<div id="EditSkillModal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-content">
+        <section class="section">
+            <div class="modal-form">
+                @using (Html.BeginForm("EditSkill", "Skills", FormMethod.Post, new { @class = "", role = "form", id = "AddSkillForm" }))
+                {
+                    <h2 class="title is-3">Edit Skill</h2>
+                    @Html.AntiForgeryToken()
 
-        $(".modal-close").click(function () {
-            CloseModal();
+                    <div class="field">
+                        <label class="label required">Skill Name</label>
+                        <div class="control">
+                            @Html.TextBox("EditSkillName", "", new { @class = "input is-small", required = "required", placeholder = "Skill Name" })
+                        </div>
+                        <p class="is-success suggestion-text"></p>
+                    </div>
+
+                    <div class="field">
+                        <label class="label required">Skill Level</label>
+                        <div class="control">
+                            <label class="radio">
+                                <input type="radio" name="editskill" value="1" id="EditSkillLevel_1">
+                                1
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="editskill" value="2" id="EditSkillLevel_2">
+                                2
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="editskill" value="3" id="EditSkillLevel_3">
+                                3
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="editskill" value="4" id="EditSkillLevel_4">
+                                4
+                            </label>
+                            <label class="radio">
+                                <input type="radio" name="editskill" value="5" id="EditSkillLevel_5">
+                                5
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label required">Experience In Years</label>
+                        <div class="control">
+                            @Html.TextBox("EditYearsExperience", "", new { @class = "input is-small", required = "required", placeholder = "Years Experience", type = "Number", @min = "0", @max = "99" })
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <div class="control">
+                            <input id="SaveEditSkillButton" type="submit" class="button is-info" value="Save" />
+                        </div>
+                    </div>
+                }
+            </div>
+        </section>
+    </div>
+    <button class="modal-close is-large" aria-label="close"></button>
+</div>
+
+<script>
+
+    const SetSkillName = (skill) => {
+        $('#SkillName').val(skill);
+        $('.suggestion-text').html('');
+    }
+    const OpenModal = () => {
+        $("#SkillModal").addClass("is-active");
+    };
+    const CloseModal = () => {
+        $("#EditSkillModal, #EditModal").removeClass("is-active");
+        ClearForm();
+    };
+    const OpenEditModal = () => {
+        $('#EditSkillModal').addClass('is-active');
+    }
+    const CloseEditModel = () => {
+        $('#EditModal').removeClass('is-active');
+    }
+    const ClearForm = () => {
+        $('form input').each(function () {
+            $(this).val(1);
+            $(this).val('');
         });
-        const SetSkillName = (skill) => {
-            $('#SkillName').val(skill);
-        }
-        const OpenModal = (skill) => {
-            $("#SkillModal").addClass("is-active");
-        };
-        const CloseModal = () => {
-            $("#SkillModal").removeClass("is-active");
-        };
-        $('#SkillName').on('keyup', function () {
-            setTimeout(function () {
-                $.post('/Skills/GetSuggestedSkills', { skillname: $('#SkillName').val() }).done(function (response) {
-                    if (response == null) $('.suggestion-text').text('');
-                    if (response.resultCount == 0) {
-                        $('.suggestion-text').text('This skill has never existed before! Way to go trend setter!');
-                    } else {
-                        $('.suggestion-text').text('Did you mean <a href="#" onclick="SetSkillName(${ response.skillName })">${ response.skillName }</a>');
+    }
+
+    window.onload = function () {
+        const init = () => {
+            $(".add-modal-skill").click(function () {
+                OpenModal();
+            });
+
+            $(".modal-close").click(function () {
+                CloseModal();
+            });
+
+            $('.delete-skill').click(function () {
+                $.ajax({
+                    type: "POST",
+                    url: '/Skills/DeleteSkill',
+                    data: {
+                        Id: $(this).attr('data-id')
+                    },
+                    success: function () {
+                        $.get("/Skills/GetUserSkillsView", function (html) {
+                            $('#SkillsList').html(html);
+                            CloseModal();
+                            init();
+                        });
                     }
                 });
-            }, 1000);
-        });
-
-
-        $('#SaveSkillButton').click(function (event) {
-            var skill = $('input[name="skill"]:checked').val();
-            event.preventDefault();
-            event.stopImmediatePropagation();
-            //$('#AddSkillForm').submit();
-
-            $.ajax({
-                type: "POST",
-                url: '/Skills/AddSkill',
-                data: {
-                    SkillName: $('#SkillName').val(),
-                    Skill: skill,
-                    YearsExperience: $('#YearsExperience').val()
-                },
-                success: function () {
-                    $.get("/Skills/GetUserSkillsView", function (html) {
-                        $('#SkillsList').html(html);
-                        CloseModal();
-                    });
-                }
             });
-        });
 
+            $('.edit-skill').click(function () {
+                console.log($(this).attr('data-id'));
+                $.ajax({
+                    type: 'GET',
+                    url: '/Skills/GetSkill',
+                    data: {
+                        Id: $(this).attr('data-id')
+                    },
+                    success: function (response) {
+                        $('#EditSkillName').val(response.skillname);
+                        $("#EditSkillLevel" + response.skilllevel).prop("checked", true);
+                        $('#EditYearsExperience').val(response.yearsexperience);
+                        OpenEditModal();
+                    }
+                })
+            });
+
+            $('#SkillName').on('keyup', function () {
+                setTimeout(function () {
+                    $.post('/Skills/GetSuggestedSkills', { skillname: $('#SkillName').val() }).done(function (response) {
+                        if (response == null) $('.suggestion-text').text('');
+                        if (response.resultCount == 0) {
+                            $('.suggestion-text').text('This skill has never existed before! Way to go trend setter!');
+                        } else {
+                            $('.suggestion-text').html('Did you mean <a href="#" onclick="SetSkillName(\'' + response.skillName + '\')">' + response.skillName + '</a>');
+                        }
+                    });
+                }, 1000);
+            });
+
+
+            $('#SaveSkillButton').click(function (event) {
+                var skill = $('input[name="skill"]:checked').val();
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                //$('#AddSkillForm').submit();
+
+                if ($('#SkillName').val() == '') {
+                    alert('Skill Name Is Required.');
+                    return;
+                }
+
+                if ($('#YearsExperience').val() == '') {
+                    alert('Years Experience Is Required.');
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Skills/AddSkill',
+                    data: {
+                        SkillName: $('#SkillName').val(),
+                        Skill: skill,
+                        YearsExperience: $('#YearsExperience').val()
+                    },
+                    success: function () {
+                        $.get("/Skills/GetUserSkillsView", function (html) {
+                            $('#SkillsList').html(html);
+                            CloseModal();
+                            init();
+                        });
+                    }
+                });
+            });
+
+            $('#SaveEditSkillButton').click(function (event) {
+                var skill = $('input[name="editskill"]:checked').val();
+                event.preventDefault();
+                event.stopImmediatePropagation();
+                //$('#AddSkillForm').submit();
+
+                if ($('#EditSkillName').val() == '') {
+                    alert('Skill Name Is Required.');
+                    return;
+                }
+
+                if ($('#EditYearsExperience').val() == '') {
+                    alert('Years Experience Is Required.');
+                    return;
+                }
+
+                $.ajax({
+                    type: "POST",
+                    url: '/Skills/UpdateSkill',
+                    data: {
+                        Id: $('#')
+                        SkillName: $('#SkillName').val(),
+                        Skill: skill,
+                        YearsExperience: $('#YearsExperience').val()
+                    },
+                    success: function () {
+                        $.get("/Skills/GetUserSkillsView", function (html) {
+                            $('#SkillsList').html(html);
+                            CloseModal();
+                            init();
+                        });
+                    }
+                });
+            });
+        };
+        init();
     }
 </script>
