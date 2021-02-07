@@ -340,7 +340,7 @@
                     type: "POST",
                     url: '/Skills/UpdateSkill',
                     data: {
-                        Id: $('#')
+                        Id: $(this).attr('data-id'),
                         SkillName: $('#SkillName').val(),
                         Skill: skill,
                         YearsExperience: $('#YearsExperience').val()

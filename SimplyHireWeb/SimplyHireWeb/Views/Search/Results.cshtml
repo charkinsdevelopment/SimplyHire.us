@@ -1,7 +1,51 @@
-﻿
+﻿@model SimplyHireWeb.Models.SearchResultsViewModel
 @{
     ViewBag.Title = "Results";
+    string resultType = "";
+    if (Model.UserResults.Count > 0)
+    {
+        resultType = "User";
+    }
+    else
+    {
+        resultType = "Job";
+    }
 }
 
-<h2>Results</h2>
+
+<section class="section">
+    <h2 class="title is-2">@resultType Results</h2>
+
+    @foreach (var user in Model.UserResults)
+    {
+        <div class="card">
+            <div class="card-content">
+                <div class="media">
+                    @*<div class="media-left">
+                            <figure class="image is-48x48">
+                                <img src="https://bulma.io/images/placeholders/96x96.png" alt="Placeholder image">
+                            </figure>
+                        </div>*@
+                    <div class="media-content">
+                        <p class="title is-4">@(user.FirstName + " " + user.LastName)</p>
+                        <p class="subtitle is-6">@user.UserName</p>
+                    </div>
+                    <div>
+                        @foreach (var skill in user.Skills.OrderBy(f => f.SkillLevel))
+                        {
+                            <span class="tag is-info">@skill.SkillName - @skill.GetSkillLevelName()</span>
+                        }
+                    </div>
+                </div>
+
+                <div class="content">
+                    @user.Bio
+                    <br />
+                    <a href="/Profile?Id=@user.UserId">View My Profile</a>
+                </div>
+            </div>
+        </div>
+    }
+</section>
+
 

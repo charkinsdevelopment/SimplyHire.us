@@ -191,6 +191,7 @@
     <Compile Include="Controllers\NewsletterController.cs" />
     <Compile Include="Controllers\PrivacyController.cs" />
     <Compile Include="Controllers\ProcessPaymentController.cs" />
+    <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Controllers\SearchController.cs" />
     <Compile Include="Controllers\SkillsController.cs" />
     <Compile Include="Controllers\TermsOfUseController.cs" />
@@ -292,6 +293,7 @@
     <Content Include="Views\Shared\_SkillsList.cshtml" />
     <Content Include="Views\TermsOfUse\Index.cshtml" />
     <Content Include="Views\Privacy\Index.cshtml" />
+    <Content Include="Views\Profile\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
