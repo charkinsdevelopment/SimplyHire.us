@@ -34,6 +34,7 @@ namespace SimplyHireWeb.Models
         public DbSet<Skill> Skills { get; set; }
         public DbSet<UserSkill> UserSkills {get; set;}
         public DbSet<NewsLetterSignUp> NewsLetterSignUps { get; set; }
+        public DbSet<UserAppliedJob> UserAppliedJobs { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

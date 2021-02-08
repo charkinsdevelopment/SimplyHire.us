@@ -1,0 +1,25 @@
+﻿@model SimplyHireWeb.Models.CompanyModels.JobListViewModel
+
+@foreach (var job in Model.PostedJobs)
+{
+    <div class="card">
+        <div class="card-content">
+            <div class="media">
+                <div class="media-content">
+                    <p class="title is-4">@(job.Title)</p>
+                    <p class="subtitle is-6">Posted: @job.CreateDate</p>
+                </div>
+                <div>
+                    <p>Number of Applicants: @job.NumberOfApplicants</p>
+                </div>
+                <div>
+                    <p>Skills Required:</p>
+                    @foreach (var skill in job.RequiredSkills)
+                    {
+                        <span class="tag is-info">@skill.Name</span>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+}
